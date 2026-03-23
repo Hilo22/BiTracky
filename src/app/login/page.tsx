@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useRouter } from "next/navigation";
 
 const loginSchema = z.object({
   email: z.string().email("Email không đúng định dạng"),
@@ -20,7 +21,7 @@ type LoginType = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
+  const router = useRouter();
 
   const {
     register,
@@ -30,29 +31,29 @@ export default function LoginPage() {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = async (data: LoginType) => {
+  const onSubmit = async (values: LoginType) => {
     setLoading(true);
-    setMessage("");
-
     try {
-      const response = await axios.post("/api/auth/login", data);
-      setMessage(response.data?.message ?? "Đăng nhập thành công");
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        setMessage(error.response?.data?.message ?? "Đăng nhập thất bại");
-      } else {
-        setMessage("Đăng nhập thất bại");
+      const res = await axios.post("/api/auth/login", values);
+      
+      if (res.status === 200) {
+        // Điều hướng thẳng vào Dashboard
+        router.push("/dashboard");
+        router.refresh(); 
       }
+    } catch (error: any) {
+      const errorMsg = error.response?.data?.message || "Sai tài khoản hoặc mật khẩu";
+      alert(errorMsg);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-100">
-      <Card className="w-[400px]">
+    <div className="flex min-h-screen items-center justify-center bg-slate-100 p-4">
+      <Card className="w-full max-w-[400px]">
         <CardHeader>
-          <CardTitle className="text-center">Đăng nhập BiTracky</CardTitle>
+          <CardTitle className="text-center text-2xl font-bold">Đăng nhập BiTracky</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -68,14 +69,15 @@ export default function LoginPage() {
               {errors.password && <p className="text-xs text-red-500">{errors.password.message}</p>}
             </div>
 
-            {message && <p className="text-sm">{message}</p>}
-
             <Button type="submit" className="w-full" disabled={loading}>
               {loading ? "Đang đăng nhập..." : "Đăng nhập"}
             </Button>
 
             <p className="text-center text-sm text-slate-600">
-              Chưa có tài khoản? <Link href="/register" className="text-blue-600">Đăng ký</Link>
+              Chưa có tài khoản?{" "}
+              <Link href="/register" className="text-blue-600 hover:underline">
+                Đăng ký
+              </Link>
             </p>
           </form>
         </CardContent>
