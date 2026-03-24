@@ -1,26 +1,27 @@
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 generator client {
   provider = "prisma-client-js"
 }
-
 model User {
   id        String   @id @default(cuid())
   email     String   @unique
   password  String
-  links     Link[]
+  links     Link[]   // Quan hệ: 1 User có nhiều Link
   createdAt DateTime @default(now())
 }
 
 model Link {
   id          String   @id @default(cuid())
-  title       String
   originalUrl String   
-  slug        String   @unique
+  slug        String   @unique 
+  title       String?  
+  clicks      Int      @default(0) 
+  
   userId      String
   user        User     @relation(fields: [userId], references: [id])
+
   createdAt   DateTime @default(now())
 }

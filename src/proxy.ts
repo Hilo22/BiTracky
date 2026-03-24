@@ -1,10 +1,9 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { jwtVerify } from 'jose'
 const protectedRoutes = ['/dashboard', '/profile'];
 const authRoutes= ['/register','/login'];
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const path = req.nextUrl.pathname;
   const isProtectedRoute = protectedRoutes.some(route => path.startsWith(route));
   const isAuthRoute = authRoutes.some(route => path.startsWith(route));
