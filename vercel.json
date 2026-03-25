@@ -1,0 +1,13 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "env": [
+    "DATABASE_URL",
+    "JWT_SECRET",
+    "NEXT_PUBLIC_APP_URL",
+    "NODE_ENV",
+    "PRISMA_FIELD_ENCRYPTION_KEY"
+  ]
+}
