@@ -131,7 +131,7 @@ export default function RegisterPage() {
 
         {/* Footer */}
         <p className="text-center text-xs text-muted-foreground mt-6">
-          © 2024 BiTracky. All rights reserved.
+          © 2026 BiTracky. All rights reserved.
         </p>
       </div>
     </div>
