@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { jwtVerify } from 'jose';
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET || 'dev-secret';
 
 const protectedRoutes = ['/dashboard', '/api/links', '/profile'];
 
@@ -23,7 +23,7 @@ export async function middleware(request: NextRequest) {
   // If trying to access protected route with token, verify it
   if (isProtectedRoute && token) {
     try {
-      const secret = new TextEncoder().encode(JWT_SECRET || '');
+      const secret = new TextEncoder().encode(JWT_SECRET);
       await jwtVerify(token, secret);
       // Token is valid, allow access
       return NextResponse.next();
@@ -36,7 +36,7 @@ export async function middleware(request: NextRequest) {
   // If trying to access login/register with token, redirect to dashboard
   if ((pathname === '/login' || pathname === '/register') && token) {
     try {
-      const secret = new TextEncoder().encode(JWT_SECRET || '');
+      const secret = new TextEncoder().encode(JWT_SECRET);
       await jwtVerify(token, secret);
       // Valid token, redirect to dashboard
       return NextResponse.redirect(new URL('/dashboard', request.url));
