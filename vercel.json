@@ -2,12 +2,5 @@
   "buildCommand": "npm run build",
   "outputDirectory": ".next",
   "cleanUrls": true,
-  "trailingSlash": false,
-  "env": {
-    "DATABASE_URL": "@database_url",
-    "JWT_SECRET": "@jwt_secret",
-    "NEXT_PUBLIC_APP_URL": "@next_public_app_url",
-    "NODE_ENV": "@node_env",
-    "PRISMA_FIELD_ENCRYPTION_KEY": "@prisma_field_encryption_key"
-  }
+  "trailingSlash": false
 }
