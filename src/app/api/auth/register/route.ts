@@ -33,14 +33,15 @@ export async function POST(req: Request){
                 },
                 {status: 400})
             }
-            const NewUser=await db.user.create({
+            const newUser = await db.user.create({
             data:{
             email:email_save,
             password:HashedPassword
                 } 
            })
            return NextResponse.json({
-            message: "register successfully"
+            message: "register successfully",
+            data: { id: newUser.id, email: newUser.email }
            })
         }
 

@@ -2,6 +2,255 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ===== Color System ===== */
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    
+    /* Primary: Professional Blue */
+    --primary: 220 90% 56%;
+    --primary-foreground: 210 40% 98%;
+    
+    /* Secondary: Modern Purple */
+    --secondary: 280 85% 50%;
+    --secondary-foreground: 210 40% 98%;
+    
+    /* Accent: Vibrant Cyan */
+    --accent: 180 100% 50%;
+    --accent-foreground: 0 0% 100%;
+    
+    /* Success: Green */
+    --success: 142 71.8% 29.2%;
+    --success-foreground: 142 100% 50%;
+    
+    /* Destructive: Red */
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+    
+    /* Warning: Amber */
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 0%;
+    
+    /* Neutral */
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 220 90% 56%;
+    --muted: 220 15% 93%;
+    --muted-foreground: 220 8.9% 46.1%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 280 85% 65%;
+    --secondary-foreground: 210 40% 5%;
+    --accent: 180 100% 60%;
+    --accent-foreground: 0 0% 0%;
+    --success: 142 71.8% 49.2%;
+    --success-foreground: 142 100% 30%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 0%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.3% 65.1%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+  }
+}
+
+/* ===== Typography ===== */
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+      "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1 {
+    @apply text-4xl font-bold tracking-tight;
+  }
+
+  h2 {
+    @apply text-3xl font-bold tracking-tight;
+  }
+
+  h3 {
+    @apply text-2xl font-bold tracking-tight;
+  }
+
+  h4 {
+    @apply text-xl font-bold tracking-tight;
+  }
+
+  h5 {
+    @apply text-lg font-semibold;
+  }
+
+  h6 {
+    @apply text-base font-semibold;
+  }
+
+  p {
+    @apply text-base leading-7;
+  }
+
+  small {
+    @apply text-sm font-medium;
+  }
+}
+
+/* ===== Utility Classes ===== */
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-4 py-2.5 rounded-lg
+      bg-primary text-primary-foreground font-semibold 
+      hover:opacity-90 transition-opacity duration-200 
+      focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
+      disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-4 py-2.5 rounded-lg
+      bg-secondary text-secondary-foreground font-semibold 
+      hover:opacity-90 transition-opacity duration-200 
+      focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2
+      disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center px-4 py-2.5 rounded-lg
+      bg-transparent text-primary border border-primary font-semibold 
+      hover:bg-primary hover:text-primary-foreground transition-colors duration-200 
+      focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
+      disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-danger {
+    @apply inline-flex items-center justify-center px-4 py-2.5 rounded-lg
+      bg-destructive text-destructive-foreground font-semibold 
+      hover:opacity-90 transition-opacity duration-200 
+      focus:outline-none focus:ring-2 focus:ring-destructive focus:ring-offset-2
+      disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-icon {
+    @apply inline-flex items-center justify-center w-10 h-10 rounded-lg
+      hover:bg-muted transition-colors duration-200
+      focus:outline-none focus:ring-2 focus:ring-primary;
+  }
+
+  .card-base {
+    @apply rounded-xl border border-border bg-card text-card-foreground
+      shadow-sm hover:shadow-md transition-shadow duration-200;
+  }
+
+  .input-base {
+    @apply w-full px-4 py-2.5 rounded-lg border border-input bg-background
+      text-foreground placeholder:text-muted-foreground
+      focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent
+      disabled:opacity-50 disabled:cursor-not-allowed
+      transition-all duration-200;
+  }
+
+  .badge-primary {
+    @apply inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full
+      bg-primary text-primary-foreground text-xs font-semibold;
+  }
+
+  .badge-secondary {
+    @apply inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full
+      bg-secondary text-secondary-foreground text-xs font-semibold;
+  }
+
+  .badge-success {
+    @apply inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full
+      bg-success text-success-foreground text-xs font-semibold;
+  }
+
+  .badge-danger {
+    @apply inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full
+      bg-destructive text-destructive-foreground text-xs font-semibold;
+  }
+
+  .section-title {
+    @apply text-2xl font-bold text-foreground mb-6;
+  }
+
+  .section-subtitle {
+    @apply text-sm text-muted-foreground mb-4;
+  }
+
+  .divider {
+    @apply border-t border-border;
+  }
+
+  .glass-effect {
+    @apply backdrop-blur-xl bg-white/80 dark:bg-gray-950/80;
+  }
+}
+
+/* ===== Animations ===== */
+@layer utilities {
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes pulse-soft {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  .animate-fadeIn {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  .animate-slideIn {
+    animation: slideIn 0.3s ease-in-out;
+  }
+
+  .animate-pulse-soft {
+    animation: pulse-soft 2s ease-in-out infinite;
+  }
+}
+
 @layer base {
   .theme {
     --font-heading: var(--font-sans);
