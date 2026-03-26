@@ -10,6 +10,7 @@ export default defineConfig({
     seed: "ts-node ./scripts/seed.ts",
   },
   datasource: {
-    url: process.env["DATABASE_URL"],
+    // Use POSTGRES_PRISMA_URL for Vercel Postgres, fall back to DATABASE_URL
+    url: process.env["POSTGRES_PRISMA_URL"] || process.env["DATABASE_URL"],
   },
 });
