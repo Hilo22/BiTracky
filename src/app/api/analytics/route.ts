@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { jwtVerify } from "jose";
 import { db } from "@/lib/db";
 
+// Prevent this route from being prerendered at build time
+export const dynamic = 'force-dynamic';
+
 const secret = new TextEncoder().encode(process.env.JWT_SECRET || "secret");
 
 export async function GET(request: NextRequest) {

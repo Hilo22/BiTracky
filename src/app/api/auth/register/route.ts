@@ -3,6 +3,7 @@ import * as z from "zod"
 import { NextResponse }   from "next/server"
 import bcrypt from  "bcrypt"
 
+export const dynamic = 'force-dynamic';
 
 const registervalidate=z.object({
     email: z.email(),

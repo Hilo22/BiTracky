@@ -5,6 +5,8 @@ import { db } from "@/lib/db";
 import { nanoid } from "nanoid";
 import { z } from "zod";
 
+export const dynamic = 'force-dynamic';
+
 const linkSchema = z.object({
    originalUrl: z.string().url("Link gốc không hợp lệ (phải có http/https)"),
   title: z.string().optional(),

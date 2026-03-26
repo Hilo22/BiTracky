@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 
+export const dynamic = 'force-dynamic';
+
 // GET: Chuyển hướng đến URL gốc và track click
 export async function GET(
   req: Request,

@@ -4,6 +4,8 @@ import { jwtVerify } from "jose";
 import { db } from "@/lib/db";
 import { z } from "zod";
 
+export const dynamic = 'force-dynamic';
+
 const updateLinkSchema = z.object({
   title: z.string().optional(),
   slug: z.string().min(3, "Mã rút gọn phải ít nhất 3 ký tự").optional(),
