@@ -46,12 +46,10 @@ export async function POST(req: Request){
         }
 
     }
-    catch(e){
+    catch(error){
+        console.error("Register Error:", error);
         return NextResponse.json({
-            message: console.log("Cannot link to the server ",e)
-        })
-           
+            message: "Server error during registration"
+        }, { status: 500 })
     }
-
-
 }
