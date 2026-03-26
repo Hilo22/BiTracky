@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { db } from "@/lib/db";
+import { getDb } from "@/lib/db";
 
 export const dynamic = 'force-dynamic';
 
@@ -10,7 +10,7 @@ export async function GET(
 ) {
   try {
     const { slug } = await params;
-    const link = await db.link.findUnique({
+    const link = await getDb().link.findUnique({
       where: { slug },
     });
 
@@ -19,7 +19,7 @@ export async function GET(
     }
 
     // Track click request
-    await db.link.update({
+    await getDb().link.update({
       where: { slug },
       data: { clicks: { increment: 1 } },
     });

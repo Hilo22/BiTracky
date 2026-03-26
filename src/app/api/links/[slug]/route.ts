@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { jwtVerify } from "jose";
-import { db } from "@/lib/db";
+import { getDb } from "@/lib/db";
 import { z } from "zod";
 
 export const dynamic = 'force-dynamic';
@@ -18,7 +18,7 @@ export async function GET(
 ) {
   try {
     const { slug } = await params;
-    const link = await db.link.findUnique({
+    const link = await getDb().link.findUnique({
       where: { slug },
       select: {
         id: true,
@@ -82,7 +82,7 @@ export async function PUT(
     const userId = payload.userId as string;
 
     // Kiểm tra xem link có tồn tại và thuộc về user
-    const existingLink = await db.link.findUnique({
+    const existingLink = await getDb().link.findUnique({
       where: { slug },
     });
 
@@ -105,7 +105,7 @@ export async function PUT(
 
     // Kiểm tra nếu slug mới đã được sử dụng
     if (validatedData.slug && validatedData.slug !== slug) {
-      const slugExists = await db.link.findUnique({
+      const slugExists = await getDb().link.findUnique({
         where: { slug: validatedData.slug },
       });
 
@@ -117,7 +117,7 @@ export async function PUT(
       }
     }
 
-    const updatedLink = await db.link.update({
+    const updatedLink = await getDb().link.update({
       where: { slug },
       data: {
         ...(validatedData.title && { title: validatedData.title }),
@@ -175,7 +175,7 @@ export async function DELETE(
     const userId = payload.userId as string;
 
     // Kiểm tra xem link có tồn tại và thuộc về user
-    const link = await db.link.findUnique({
+    const link = await getDb().link.findUnique({
       where: { slug },
     });
 
@@ -193,7 +193,7 @@ export async function DELETE(
       );
     }
 
-    await db.link.delete({
+    await getDb().link.delete({
       where: { slug },
     });
 

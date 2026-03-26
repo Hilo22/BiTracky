@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { jwtVerify } from "jose";
-import { db } from "@/lib/db";
+import { getDb } from "@/lib/db";
 
 // Prevent this route from being prerendered at build time
 export const dynamic = 'force-dynamic';
@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
     if (endDate) dateFilter.lte = new Date(endDate);
 
     // Fetch user's links with click data
-    const links = await db.link.findMany({
+    const links = await getDb().link.findMany({
       where: {
         userId,
         ...(Object.keys(dateFilter).length > 0 && { createdAt: dateFilter }),

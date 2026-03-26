@@ -1,4 +1,4 @@
-import {db} from "@/lib/db";
+import { getDb } from "@/lib/db";
 import * as z from "zod"
 import { NextResponse }   from "next/server"
 import bcrypt from  "bcrypt"
@@ -35,7 +35,7 @@ export async function POST(req: Request){
                 {status: 400})
             }
 
-            const user = await db.user.findFirst({where: {email: result.data.email}});
+            const user = await getDb().user.findFirst({where: {email: result.data.email}});
             if (!user) {
                 return NextResponse.json(
                 {

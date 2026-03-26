@@ -1,4 +1,4 @@
-import {db} from "@/lib/db";
+import { getDb } from "@/lib/db";
 import * as z from "zod"
 import { NextResponse }   from "next/server"
 import bcrypt from  "bcrypt"
@@ -26,7 +26,7 @@ export async function POST(req: Request){
         }else{
             const HashedPassword = await bcrypt.hash(result.data.password,10);
             const email_save=data.email;
-            const Find=await db.user.findFirst({where: {email: data.email}});
+            const Find=await getDb().user.findFirst({where: {email: data.email}});
             if(Find){
                 return NextResponse.json(
                 {
@@ -34,7 +34,7 @@ export async function POST(req: Request){
                 },
                 {status: 400})
             }
-            const newUser = await db.user.create({
+            const newUser = await getDb().user.create({
             data:{
             email:email_save,
             password:HashedPassword

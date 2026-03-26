@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { jwtVerify } from "jose";
-import { db } from "@/lib/db";
+import { getDb } from "@/lib/db";
 import { nanoid } from "nanoid";
 import { z } from "zod";
 
@@ -41,14 +41,14 @@ export async function POST(req: Request) {
     const validatedData = linkSchema.parse(body);
 
     const finalSlug = validatedData.slug || nanoid(6);
-    const isSlugTaken = await db.link.findUnique({
+    const isSlugTaken = await getDb().link.findUnique({
       where: { slug: finalSlug }
     });
     if (isSlugTaken) {
       return NextResponse.json({ error: "Mã rút gọn này đã được sử dụng" }, { status: 400 });
     }
 
-    const newLink = await db.link.create({
+    const newLink = await getDb().link.create({
       data: {
         originalUrl: validatedData.originalUrl,
         title: validatedData.title || "Untitled Link",
@@ -114,7 +114,7 @@ export async function GET(req: Request) {
       };
     }
 
-    const links = await db.link.findMany({
+    const links = await getDb().link.findMany({
       where: whereClause,
       orderBy: { [sortBy]: order },
     });
